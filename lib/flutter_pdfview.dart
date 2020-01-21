@@ -28,6 +28,7 @@ class PDFView extends StatefulWidget {
     this.autoSpacing = true,
     this.pageFling = true,
     this.pageSnap = true,
+    this.spacing = 0
   }) : super(key: key);
 
   @override
@@ -61,11 +62,12 @@ class PDFView extends StatefulWidget {
   final bool autoSpacing;
   final bool pageFling;
   final bool pageSnap;
+  final int spacing;
 }
 
 class _PDFViewState extends State<PDFView> {
   final Completer<PDFViewController> _controller =
-      Completer<PDFViewController>();
+  Completer<PDFViewController>();
   @override
   Widget build(BuildContext context) {
     if (defaultTargetPlatform == TargetPlatform.android) {
@@ -101,7 +103,7 @@ class _PDFViewState extends State<PDFView> {
   void didUpdateWidget(PDFView oldWidget) {
     super.didUpdateWidget(oldWidget);
     _controller.future.then(
-        (PDFViewController controller) => controller._updateWidget(widget));
+            (PDFViewController controller) => controller._updateWidget(widget));
   }
 }
 
@@ -142,17 +144,20 @@ class _PDFViewSettings {
     this.autoSpacing,
     this.pageFling,
     this.pageSnap,
+    this.spacing
   });
 
   static _PDFViewSettings fromWidget(PDFView widget) {
     return _PDFViewSettings(
-      enableSwipe: widget.enableSwipe,
-      swipeHorizontal: widget.swipeHorizontal,
-      password: widget.password,
-      nightMode: widget.nightMode,
-      autoSpacing: widget.autoSpacing,
-      pageFling: widget.pageFling,
-      pageSnap: widget.pageSnap,
+        enableSwipe: widget.enableSwipe,
+        swipeHorizontal: widget.swipeHorizontal,
+        password: widget.password,
+        nightMode: widget.nightMode,
+        autoSpacing: widget.autoSpacing,
+        pageFling: widget.pageFling,
+        pageSnap: widget.pageSnap,
+        spacing: widget.spacing
+
     );
   }
 
@@ -163,6 +168,7 @@ class _PDFViewSettings {
   final bool autoSpacing;
   final bool pageFling;
   final bool pageSnap;
+  final int spacing;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -173,6 +179,7 @@ class _PDFViewSettings {
       'autoSpacing': autoSpacing,
       'pageFling': pageFling,
       'pageSnap': pageSnap,
+      'spacing' : spacing
     };
   }
 
@@ -194,9 +201,9 @@ class _PDFViewSettings {
 
 class PDFViewController {
   PDFViewController._(
-    int id,
-    this._widget,
-  ) : _channel = MethodChannel('plugins.endigo.io/pdfview_$id') {
+      int id,
+      this._widget,
+      ) : _channel = MethodChannel('plugins.endigo.io/pdfview_$id') {
     _settings = _PDFViewSettings.fromWidget(_widget);
     _channel.setMethodCallHandler(_onMethodCall);
   }
