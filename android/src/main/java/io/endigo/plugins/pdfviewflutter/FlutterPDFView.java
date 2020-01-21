@@ -1,5 +1,6 @@
 package io.endigo.plugins.pdfviewflutter;
 
+import io.endigo.plugins.pdfviewflutter.PDFView;
 import android.content.Context;
 import android.view.View;
 import io.flutter.plugin.common.BinaryMessenger;
@@ -12,7 +13,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.github.barteksc.pdfviewer.PDFView;
+
 import com.github.barteksc.pdfviewer.listener.*;
 import com.github.barteksc.pdfviewer.util.Constants;
 
