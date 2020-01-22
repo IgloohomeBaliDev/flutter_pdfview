@@ -42,6 +42,7 @@ public class FlutterPDFView implements PlatformView, MethodCallHandler {
                 .autoSpacing(getBoolean(params,"autoSpacing"))
                 .pageFling(getBoolean(params,"pageFling"))
                 .pageSnap(getBoolean(params,"pageSnap"))
+                .spacing(getInt(params, "spacing"))
                 .onPageChange(new OnPageChangeListener() {
                     @Override
                     public void onPageChanged(int page, int total) {
@@ -157,5 +158,8 @@ public class FlutterPDFView implements PlatformView, MethodCallHandler {
 
     String getString(Map<String, Object> params, String key) {
         return params.containsKey(key) ? (String) params.get(key): "";
+    }
+    int getInt(Map<String, Object> params, String key) {
+        return params.containsKey(key) ? (int) params.get(key): 0;
     }
 }
